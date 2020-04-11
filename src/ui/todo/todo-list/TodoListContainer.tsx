@@ -6,7 +6,7 @@ export class TodoListContainer extends React.Component {
   render() {
     return (
       <TodoStoreContext.Consumer>
-        {(store) => <TodoList todos={store.todos} />}
+        {(store) => <TodoList todos={store.sortedTodos} />}
       </TodoStoreContext.Consumer>
     );
   }
