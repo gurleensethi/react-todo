@@ -20,7 +20,7 @@ const Form = styled.form`
     flex-grow: 1;
     border: none;
     background-color: white;
-    padding: 12px;
+    padding: 16px;
     color: black;
     font-size: 16px;
   }

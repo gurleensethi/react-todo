@@ -2,9 +2,9 @@ import { observable, action, computed } from "mobx";
 import { Todo } from "data/models/todo";
 
 export class TodoStore {
-  @observable.shallow todos: Todo[] = [
+  @observable.shallow todos: Todo[] = observable.array([
     { description: "Testing", createdAt: new Date(), isCompleted: false },
-  ];
+  ]);
 
   @computed get pendingTodos(): Todo[] {
     return this.todos
@@ -27,12 +27,6 @@ export class TodoStore {
   };
 
   @action toggleTodo = (todo: Todo) => {
-    const todoFromList = this.todos.find(
-      (t) => todo.createdAt.getTime() === t.createdAt.getTime()
-    );
-    if (todoFromList) {
-      todoFromList.isCompleted = true;
-    }
-    console.log(this.todos);
+    todo.isCompleted = !todo.isCompleted;
   };
 }
