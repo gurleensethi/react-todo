@@ -1,8 +1,13 @@
-import { observable, action, computed } from "mobx";
+import { observable, action, computed, autorun, IObservableArray } from "mobx";
 import { Todo } from "data/models/todo";
 
 export class TodoStore {
-  @observable.shallow todos: Todo[] = observable.array([]);
+  @observable.shallow todos: IObservableArray<Todo> = observable.array([]);
+
+  constructor() {
+    this.loadTodosFromStorage();
+    this.updateLocalStorage();
+  }
 
   @computed get pendingTodos(): Todo[] {
     return this.todos
@@ -28,5 +33,23 @@ export class TodoStore {
 
   @action toggleTodo = (todo: Todo) => {
     todo.isCompleted = !todo.isCompleted;
+  };
+
+  @action private loadTodosFromStorage = () => {
+    const todosStr = localStorage.getItem("todos");
+    if (todosStr) {
+      this.todos = observable.array(
+        JSON.parse(todosStr).map((todo: Todo) => ({
+          ...todo,
+          createdAt: new Date(todo.createdAt),
+        }))
+      );
+    }
+  };
+
+  private updateLocalStorage = () => {
+    autorun(() => {
+      localStorage.setItem("todos", JSON.stringify(this.todos));
+    });
   };
 }
