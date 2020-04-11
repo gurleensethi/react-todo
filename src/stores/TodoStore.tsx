@@ -2,15 +2,20 @@ import { observable, action, computed } from "mobx";
 import { Todo } from "data/models/todo";
 
 export class TodoStore {
-  @observable todos: Todo[] = [
+  @observable.shallow todos: Todo[] = [
     { description: "Testing", createdAt: new Date(), isCompleted: false },
   ];
 
-  @computed get sortedTodos(): Todo[] {
-    const sortedTodos = this.todos
-      .slice()
+  @computed get pendingTodos(): Todo[] {
+    return this.todos
+      .filter((todo) => !todo.isCompleted)
       .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
-    return sortedTodos;
+  }
+
+  @computed get completedTodos(): Todo[] {
+    return this.todos
+      .filter((todo) => todo.isCompleted)
+      .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
   }
 
   @action addTodo = (description: string) => {
@@ -19,5 +24,15 @@ export class TodoStore {
       createdAt: new Date(),
       isCompleted: false,
     });
+  };
+
+  @action toggleTodo = (todo: Todo) => {
+    const todoFromList = this.todos.find(
+      (t) => todo.createdAt.getTime() === t.createdAt.getTime()
+    );
+    if (todoFromList) {
+      todoFromList.isCompleted = true;
+    }
+    console.log(this.todos);
   };
 }

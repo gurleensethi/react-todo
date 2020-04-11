@@ -1,11 +1,12 @@
 import * as React from "react";
 import { Todo } from "../../../data/models/todo";
-import { observer } from "mobx-react";
 import { TodoListItem } from "./TodoListItem";
 import styled from "styled-components";
+import { observer } from "mobx-react";
 
 interface Props {
   todos: Todo[];
+  onTodoToggle: (todo: Todo) => void;
 }
 
 interface State {}
@@ -20,7 +21,11 @@ export class TodoList extends React.Component<Props, State> {
     return (
       <Container>
         {this.props.todos.map((todo) => (
-          <TodoListItem todo={todo} />
+          <TodoListItem
+            key={todo.createdAt.getTime()}
+            todo={todo}
+            onToggle={() => this.props.onTodoToggle(todo)}
+          />
         ))}
       </Container>
     );

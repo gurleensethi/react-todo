@@ -1,14 +1,27 @@
 import * as React from "react";
 import { TodoList } from "./TodoList";
-import { withTodoStore } from "context/TodoStoreContext";
+import { withTodoStore, TodoStoreContext } from "context/TodoStoreContext";
 import { TodoStore } from "stores/TodoStore";
+import { observer } from "mobx-react";
 
-export const TodoListContainer = withTodoStore(
-  class extends React.Component<{
-    todoStore: TodoStore;
-  }> {
-    render() {
-      return <TodoList todos={this.props.todoStore.todos} />;
-    }
+interface Props {
+  completed: boolean;
+}
+
+export class TodoListContainer extends React.Component<Props> {
+  render() {
+    return (
+      <TodoStoreContext.Consumer>
+        {(todoStore) => {
+          const { completed } = this.props;
+          const todoList = completed
+            ? todoStore.completedTodos
+            : todoStore.pendingTodos;
+          return (
+            <TodoList todos={todoList} onTodoToggle={todoStore.toggleTodo} />
+          );
+        }}
+      </TodoStoreContext.Consumer>
+    );
   }
-);
+}

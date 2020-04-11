@@ -33,7 +33,9 @@ export class TodoPage extends React.Component {
         <Container>
           <TodoInputContainer />
           <SectionTitle>Todos</SectionTitle>
-          <TodoListContainer />
+          <TodoListContainer completed={false} />
+          <SectionTitle>Completed</SectionTitle>
+          <TodoListContainer completed={true} />
         </Container>
       </Page>
     );
