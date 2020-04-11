@@ -1,4 +1,5 @@
 import * as React from "react";
+import styled from "styled-components";
 
 interface Props {
   addTodo: (text: string) => void;
@@ -8,6 +9,36 @@ interface State {
   text: string;
 }
 
+const Form = styled.form`
+  width: 100%;
+  display: flex;
+  box-shadow: 1px 1px 5px var(--shadow-color);
+  overflow: hidden;
+  border-radius: 4px;
+
+  & input {
+    flex-grow: 1;
+    border: none;
+    background-color: white;
+    padding: 12px;
+    color: black;
+    font-size: 16px;
+  }
+
+  & button {
+    border: none;
+    color: white;
+    background-color: var(--primary-color);
+    padding: 16px;
+    font-size: 16px;
+
+    &:hover {
+      cursor: pointer;
+      background-color: var(--secondary-color);
+    }
+  }
+`;
+
 export class TodoInput extends React.Component<Props, State> {
   state = {
     text: "",
@@ -15,10 +46,14 @@ export class TodoInput extends React.Component<Props, State> {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input value={this.state.text} onChange={this.handleChange} />
+      <Form onSubmit={this.handleSubmit}>
+        <input
+          value={this.state.text}
+          onChange={this.handleChange}
+          placeholder="Enter Todo"
+        />
         <button type="submit">Add</button>
-      </form>
+      </Form>
     );
   }
 

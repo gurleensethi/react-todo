@@ -1,7 +1,6 @@
 import * as React from "react";
 import { TodoList } from "./TodoList";
 import { withTodoStore } from "context/TodoStoreContext";
-import { observer } from "mobx-react";
 import { TodoStore } from "stores/TodoStore";
 
 export const TodoListContainer = withTodoStore(
