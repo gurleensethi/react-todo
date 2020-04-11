@@ -12,7 +12,7 @@ interface State {
 const Form = styled.form`
   width: 100%;
   display: flex;
-  box-shadow: 1px 1px 5px var(--shadow-color);
+  box-shadow: 0px 2px 2px var(--shadow-color);
   overflow: hidden;
   border-radius: 4px;
 
