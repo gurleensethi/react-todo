@@ -17,9 +17,10 @@ const Container = styled.div`
 
 export class TodoList extends React.Component<Props, State> {
   render() {
+    const { todos } = this.props;
     return (
       <Container>
-        {this.props.todos.map((todo) => (
+        {todos.map((todo) => (
           <TodoListItem
             key={todo.createdAt.getTime()}
             todo={todo}
