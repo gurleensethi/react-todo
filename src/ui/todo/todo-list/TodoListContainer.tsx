@@ -1,13 +1,15 @@
 import * as React from "react";
 import { TodoList } from "./TodoList";
-import { TodoStoreContext } from "context/TodoStoreContext";
+import { withTodoStore } from "context/TodoStoreContext";
+import { observer } from "mobx-react";
+import { TodoStore } from "stores/TodoStore";
 
-export class TodoListContainer extends React.Component {
-  render() {
-    return (
-      <TodoStoreContext.Consumer>
-        {(store) => <TodoList todos={store.sortedTodos} />}
-      </TodoStoreContext.Consumer>
-    );
+export const TodoListContainer = withTodoStore(
+  class extends React.Component<{
+    todoStore: TodoStore;
+  }> {
+    render() {
+      return <TodoList todos={this.props.todoStore.todos} />;
+    }
   }
-}
+);

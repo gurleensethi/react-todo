@@ -2,14 +2,13 @@ import { observable, action, computed } from "mobx";
 import { Todo } from "data/models/todo";
 
 export class TodoStore {
-  @observable todos: Todo[] = [
-    { description: "testing", createdAt: new Date(), isCompleted: false },
-  ];
+  @observable todos: Todo[] = [];
 
   @computed get sortedTodos(): Todo[] {
-    return this.todos.sort(
-      (a, b) => a.createdAt.getTime() - b.createdAt.getTime()
-    );
+    const sortedTodos = this.todos
+      .slice()
+      .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+    return sortedTodos;
   }
 
   @action addTodo = (description: string) => {
