@@ -21,6 +21,7 @@ const Container = styled.div`
 const SectionTitle = styled.div`
   width: 100%;
   margin-top: 40px;
+  margin-bottom: 20px;
   font-size: 28px;
   color: var(--text-color);
 `;
