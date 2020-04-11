@@ -1,26 +1,12 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import { TodoStoreContext } from "./context/TodoStoreContext";
+import { TodoStore } from "./stores/TodoStore";
+import { TodoPage } from "./ui/todo/TodoPage";
 
-function App() {
+export const App: React.FunctionComponent = (props) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TodoStoreContext.Provider value={new TodoStore()}>
+      <TodoPage />
+    </TodoStoreContext.Provider>
   );
-}
-
-export default App;
+};
