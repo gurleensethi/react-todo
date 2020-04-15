@@ -1,8 +1,8 @@
-import { observable, action, computed, autorun, IObservableArray } from "mobx";
+import { observable, action, computed, autorun } from "mobx";
 import { Todo } from "data/models/todo";
 
 export class TodoStore {
-  @observable.shallow todos: IObservableArray<Todo> = observable.array([]);
+  @observable.deep todos: Todo[] = [];
 
   constructor() {
     this.loadTodosFromStorage();
@@ -38,7 +38,13 @@ export class TodoStore {
   @action private loadTodosFromStorage = () => {
     const todosStr = localStorage.getItem("todos");
     if (todosStr) {
-      this.todos = observable.array(
+      console.log(
+        JSON.parse(todosStr).map((todo: Todo) => ({
+          ...todo,
+          createdAt: new Date(todo.createdAt),
+        }))
+      );
+      this.todos = this.todos.concat(
         JSON.parse(todosStr).map((todo: Todo) => ({
           ...todo,
           createdAt: new Date(todo.createdAt),
