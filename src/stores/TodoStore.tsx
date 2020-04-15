@@ -36,11 +36,10 @@ export class TodoStore {
   };
 
   @action deleteTodo = (todo: Todo) => {
-    console.log(todo);
     const index = this.todos.findIndex(
       (t) => todo.createdAt.getTime() === t.createdAt.getTime()
     );
-    if (index) {
+    if (index !== -1) {
       this.todos.splice(index, 1);
     }
   };
