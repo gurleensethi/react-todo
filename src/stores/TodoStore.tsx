@@ -35,6 +35,16 @@ export class TodoStore {
     todo.isCompleted = !todo.isCompleted;
   };
 
+  @action deleteTodo = (todo: Todo) => {
+    console.log(todo);
+    const index = this.todos.findIndex(
+      (t) => todo.createdAt.getTime() === t.createdAt.getTime()
+    );
+    if (index) {
+      this.todos.splice(index, 1);
+    }
+  };
+
   @action private loadTodosFromStorage = () => {
     const todosStr = localStorage.getItem("todos");
     if (todosStr) {

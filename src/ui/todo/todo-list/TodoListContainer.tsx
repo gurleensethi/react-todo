@@ -22,6 +22,7 @@ export const TodoListContainer = withTodoStore(
             todos={todoList}
             onTodoToggle={todoStore.toggleTodo}
             complted={completed}
+            onDeleteTodo={todoStore.deleteTodo}
           />
         );
       }

@@ -7,6 +7,7 @@ interface Props {
   todos: Todo[];
   onTodoToggle: (todo: Todo) => void;
   complted: boolean;
+  onDeleteTodo: (todo: Todo) => void;
 }
 
 interface State {}
@@ -26,6 +27,7 @@ export class TodoList extends React.Component<Props, State> {
             todo={todo}
             onToggle={() => this.props.onTodoToggle(todo)}
             completed={this.props.complted}
+            onDelete={() => this.props.onDeleteTodo(todo)}
           />
         ))}
       </Container>

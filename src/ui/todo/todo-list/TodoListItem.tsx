@@ -8,6 +8,7 @@ interface Props {
   todo: Todo;
   onToggle: () => void;
   completed: boolean;
+  onDelete: () => void;
 }
 
 const Container = styled.div`
@@ -47,7 +48,6 @@ const TodoCheckbox = styled.input`
 const TodoText = styled.span<{ complted: boolean }>`
   color: var(--text-color);
   font-size: 20px;
-  font-weight: bold;
   flex: 1;
   text-decoration: ${(props) => (props.complted ? "line-through" : "none")};
 `;
@@ -75,20 +75,20 @@ const DeleteIconContainer = styled.div`
 @observer
 export class TodoListItem extends React.Component<Props> {
   render() {
-    const { todo } = this.props;
+    const { todo, onToggle, onDelete } = this.props;
     return (
       <Container key={todo.createdAt.getTime()}>
         <TextContainer>
           <TodoCheckbox
             type="checkbox"
-            onChange={this.props.onToggle}
+            onChange={onToggle}
             checked={todo.isCompleted}
           />
           <TodoText complted={this.props.completed}>
             {todo.description}
           </TodoText>
           {todo.isCompleted && (
-            <DeleteIconContainer>
+            <DeleteIconContainer onClick={onDelete}>
               <MdDelete size={24} />
             </DeleteIconContainer>
           )}
